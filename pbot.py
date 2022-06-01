@@ -26,7 +26,7 @@ async def start(bot, update):
 async def code(bot, update):
     otpop =generate(update.text)
     await update.reply_text(
-        f""" your otp is: {gotpope}""", 
+        f""" your otp is: {otpop}""", 
         disable_web_page_preview=True,
         reply_markup=START_BUTTON
     )

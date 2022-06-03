@@ -2,8 +2,9 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from otp import generate
+import pyromod.listen
 Developedbots = Client(
-    "Pyrogram-example-bot",
+    "mfabot",
     bot_token = os.environ["BOT_TOKEN"],
     api_id = int(os.environ["API_ID"]),
     api_hash = os.environ["API_HASH"]
@@ -22,13 +23,25 @@ async def start(bot, update):
         disable_web_page_preview=True,
         reply_markup=START_BUTTON
     )
-@Developedbots.on_message(filters.private & filters.incoming)
+@Developedbots.on_message(filters.private & filters.incoming & filters.command(["add"]))
 async def code(bot, update):
-    otpop = generate(update.text)
-    await update.reply_text(
-        f""" your otp is: {otpop}""", 
+    username = bot.ask(update.from_user.id,"Enter the username")
+    secr = bot.ask(update.from_user.id,"Enter the qrcode secret")
+    #otpop = generate(update.text)
+    await update.send_message(
+        f"""MFA set for {username.text}""", 
         disable_web_page_preview=True,
         reply_markup=START_BUTTON
     )
-
+@Developedbots.on_message(filters.private & filters.incoming)
+async def create(bot, update):
+    otpop = generate(update.text)
+    await update.reply_text(
+        f"""otp is {otpopt}""", 
+        disable_web_page_preview=True,
+        reply_markup=START_BUTTON
+    )
+@Developedbots.on_callback_query()
+async def hello(bot,update):
+    print("hello")
 Developedbots.run()

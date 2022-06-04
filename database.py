@@ -7,14 +7,18 @@ class Database:
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.col = self.db.users
-    def new_user(self, id):
+    def new_user(self, id, name, qr):
         return dict(
             id = id,
             join_date = datetime.date.today().isoformat()
+            codes =dict(name,qr)
         )
-    async def add_user(self, id):
-        user = self.new_user(id)
+    async def add_user(self, id, name, qr):
+        user = self.new_user(id, name, qr)
         await self.col.insert_one(user)
+    async def add_name(self, id, name, qr):
+        ool=4545
+        user=self.col.update_one()
     async def is_user_exist(self, id):
         user = await self.col.find_one({'id':int(id)})
         return True if user else False

@@ -25,8 +25,8 @@ async def start(bot, update):
     )
 @Developedbots.on_message(filters.private & filters.incoming & filters.command(["add"]))
 async def code(bot, update):
-    username = bot.ask(update.from_user.id,"Enter the username")
-    secr = bot.ask(update.from_user.id,"Enter the qrcode secret")
+    username = await bot.ask(update.from_user.id,"Enter the username")
+    secr = await bot.ask(update.from_user.id,"Enter the qrcode secret")
     #otpop = generate(update.text)
     await bot.send_message(
         text=f"""MFA set for {username}""", 

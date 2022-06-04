@@ -28,7 +28,7 @@ async def code(bot, update):
     username = bot.ask(update.from_user.id,"Enter the username")
     secr = bot.ask(update.from_user.id,"Enter the qrcode secret")
     #otpop = generate(update.text)
-    await bot.sent_message(
+    await bot.send_message(
         f"""MFA set for {username.text}""", 
         disable_web_page_preview=True,
         reply_markup=START_BUTTON

@@ -30,6 +30,7 @@ async def code(bot, update):
     #otpop = generate(update.text)
     await bot.send_message(
         text=f"""MFA set for {username}""", 
+        chat_id=update.from_user.id,
         disable_web_page_preview=True,
         reply_markup=START_BUTTON
     )
